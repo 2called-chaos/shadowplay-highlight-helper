@@ -1,63 +1,52 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow, ipcMain} = require('electron')
-const path = require('path')
-const settings = require('electron-settings')
+const {app, session} = require("electron")
+const path = require("path")
+
+const ShhSettings = require("./application/settings")
+const ShhMainWindow = require("./application/main_window")
+const ShhAppMenu = require("./application/app_menu.js")
+const ShhIPC = require("./application/ipc.js")
+const ShhDevelopment = require("./application/development.js")
 
 exports.ShadowplayHighlightHelper = class ShadowplayHighlightHelper {
   constructor() {
+    this.version = require("./application/version")
+    this.name = app.name = "ShadowPlay Highlight Helper"
+    this.isDev = process.env.APP_DEV ? (process.env.APP_DEV.trim() == "true" || process.env.APP_DEV.trim() == "1") : false;
+    this.isMac = process.platform === "darwin"
     this.mainWindow = null
+    this.dev = new ShhDevelopment(this).init()
   }
 
   hook() {
-    app.on('ready', () => { this.start() })
-    app.on('window-all-closed', () => { this.lastWindowClosed() })
-    app.on('activate', () => { this.activate() })
+    app.on("ready", () => { this.start() })
+    app.on("window-all-closed", () => { this.lastWindowClosed() })
+    app.on("activate", () => { this.activate() })
   }
-
-  start() {
-    this.loadSettings()
-    this.createWindow()
-  }
-
-  loadSettings() {
-    console.log("Using config file", settings.file())
-    if (!settings.has('app.dark_mode'))
-      settings.set('app.dark_mode', true)
-    if (!settings.has('app.remember_directory'))
-      settings.set('app.remember_directory', true)
-    if (!settings.has('app.remember_size_and_position'))
-      settings.set('app.remember_size_and_position', true)
-    if (!settings.has('app.tags'))
-      settings.set('app.tags', [])
-  }  
 
   activate() {
-    if (this.mainWindow === null) this.createWindow()
+    this.mainWindow.activate()
   }
 
   lastWindowClosed() {
-    app.quit()
-    //if (process.platform !== 'darwin') app.quit()
+    //app.quit()
+    if (!this.isMac) app.quit()
   }
 
-  createWindow () {
-    // Create the browser window.
-    this.mainWindow = new BrowserWindow({
-      show: false,
-      width: 800,
-      height: 600,
-      webPreferences: {
-        preload: path.join(__dirname, 'preload.js')
-      }
+  start() {
+    this.settings = new ShhSettings(this).loadDefaults()
+    this.dev.start()
+    //this.setUserAgent()
+    this.mainWindow = new ShhMainWindow(this).create()
+    this.appMenu = new ShhAppMenu(this).update(this.isMac, this.isDev)
+    this.ipc = new ShhIPC(this).hook()
+  }
+
+  setUserAgent() {
+    session.defaultSession.webRequest.onBeforeSendHeaders(filter, (details, callback) => {
+      details.requestHeaders["User-Agent"] = "MyAgent"
+      callback({ requestHeaders: details.requestHeaders })
     })
-    this.mainWindow.loadFile('index.html')
-    this.mainWindow.webContents.openDevTools()
-    ipcMain.on('app-invoke', (event, opt) => {
-      if (opt.log) console.log(eval(opt.log))
-      //secondWindow.webContents.send('action-update-label', arg);
-    })
-    this.mainWindow.on('closed', () => { this.mainWindow = null })
-    this.mainWindow.once('ready-to-show', () => { this.mainWindow.show() })
   }
 }
 

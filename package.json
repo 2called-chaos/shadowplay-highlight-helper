@@ -4,7 +4,11 @@
   "description": "Nvidia experience ShadowPlay highlight video helper",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "APP_DEV=1 electron .",
+    "start-prod": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "distall": "electron-builder -mwl"
   },
   "repository": "https://github.com/2called-chaos/shadowplay-highlight-helper",
   "keywords": [
@@ -17,8 +21,27 @@
   ],
   "author": "2called-chaos",
   "license": "MIT",
+  "postinstall": "electron-builder install-app-deps",
+  "build": {
+    "appId": "net.bmonkeys.2called-chaos.shadowplay-highlight-helper",
+    "productName": "ShadowPlay Highlight Helper",
+    "mac": {
+      "category": "public.app-category.productivity",
+      "icon": "build/icon.icns",
+      "type": "development",
+      "darkModeSupport": true
+    },
+    "win": {
+      "icon": "build/icon.ico"
+    },
+    "linux": {
+      "icon": "build/icon.png"
+    }
+  },
   "devDependencies": {
-    "electron": "^7.1.9"
+    "electron": "^7.1.9",
+    "electron-builder": "^22.2.0",
+    "electron-reload": "^1.5.0"
   },
   "dependencies": {
     "@forevolve/bootstrap-dark": "^1.0.0-alpha.863",

@@ -1,4 +1,4 @@
-[v-cloak] { display: none; }
+body.hidden, [v-cloak] { display: none; }
 
 .flexcentered {
   min-height: 100%;
@@ -28,7 +28,7 @@
 }
 
 #app {
-  margin: 0px auto 25px auto;
+  margin: 0px auto 23px auto;
   padding: 24px 30px;
   position: relative;
 }
@@ -43,7 +43,7 @@
   color: rgba(175, 175, 175, 0.8);
   border-top: 1px solid rgba(175, 175, 175, 0.4);
   padding: 2px 7px 3px 7px;
-  font-size: 12px;
+  font-size: 11px;
 }
 
 .btn-settings-toggle {

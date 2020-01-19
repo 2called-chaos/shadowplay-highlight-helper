@@ -5,7 +5,7 @@
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <title>ShadowPlay Highlight Helper v1.0.0</title>
+    <title>ShadowPlay Highlight Helper</title>
     <!-- <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css"> -->
     <link rel="stylesheet" href="node_modules/@forevolve/bootstrap-dark/dist/css/toggle-bootstrap.css">
     <link rel="stylesheet" href="node_modules/@forevolve/bootstrap-dark/dist/css/toggle-bootstrap-dark.css">
@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="./style.css">
     <script type="text/javascript" src="node_modules/vue/dist/vue.js"></script>
   </head>
-  <body class="bootstrap">
+  <body class="bootstrap hidden">
     <div id="welcome" class="flexcentered">
       <div class="row">
         <div class="col-12 text-center xxx">
@@ -37,7 +37,7 @@
 
     <div id="footer">
       <span class="float-left">
-        ShadowPlay Highlight Helper v1.0.0
+        ShadowPlay Highlight Helper <span data-attr="shh-version">v?</span>
       </span>
       <span class="float-right">
         powered by
@@ -51,7 +51,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="settingsModalLabel">App Settings</h5>
+            <h5 class="modal-title" id="settingsModalLabel"><i class="fa fa-cogs"></i> Settings</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>

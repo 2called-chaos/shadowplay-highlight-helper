@@ -4,11 +4,21 @@
 // `nodeIntegration` is turned off. Use `preload.js` to
 // selectively enable features needed in the rendering
 // process.
-window.addEventListener('DOMContentLoaded', () => {
-  if (appsettings.get("app.dark_mode")) $("body").addClass("bootstrap-dark")
-  $("#welcome").hide(2000)
-  setTimeout(() => { $("#app").hide().removeClass("d-none").fadeIn(500) }, 1250)
+window.addEventListener("DOMContentLoaded", () => {
+  getHashParams = () => {
+    result = {}
+    if(window.location.hash) {
+      parts = window.location.hash.substr(1).split("&")
+      for (var i = parts.length - 1; i >= 0; i--) {
+        kvp = parts[i].split("=")
+        key = kvp.shift()
+        result[key] = kvp.join("=")
+      } 
+    }
+    return result
+  }
 
-
-  $("")
+  
+  window.client = new ViewClient(getHashParams());
+  window.client.hook().start();
 })
