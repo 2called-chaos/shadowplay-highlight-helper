@@ -1,0 +1,32 @@
+{
+  "name": "shadowplay-highlight-helper",
+  "version": "1.0.0",
+  "description": "Nvidia experience ShadowPlay highlight video helper",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/2called-chaos/shadowplay-highlight-helper",
+  "keywords": [
+    "Electron",
+    "nvidia experience",
+    "shadowplay",
+    "video",
+    "highlight",
+    "helper"
+  ],
+  "author": "2called-chaos",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^7.1.9"
+  },
+  "dependencies": {
+    "@forevolve/bootstrap-dark": "^1.0.0-alpha.863",
+    "bootstrap": "^4.4.1",
+    "electron-settings": "^3.2.0",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.16.0",
+    "vue": "^2.6.11"
+  }
+}
