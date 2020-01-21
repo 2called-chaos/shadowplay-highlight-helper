@@ -84,6 +84,13 @@ module.exports = class ShhAppMenu {
           { role: "zoomin" },
           { role: "zoomout" },
           { type: "separator" },
+            {
+              label: "Reset main window",
+              click: () => {
+                this.shh.mainWindow.window.setBounds(this.shh.mainWindow.defaultBounds)
+                this.shh.mainWindow.window.center()
+              }
+            },
           { role: "togglefullscreen" }
         ]
       },
