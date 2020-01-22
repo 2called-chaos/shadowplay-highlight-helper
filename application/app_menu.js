@@ -22,7 +22,7 @@ module.exports = class ShhAppMenu {
           {
             label: "Preferences...",
             accelerator: "CommandOrControl+,",
-            click: () => { this.shh.mainWindow.trigger("toggleSettings") }
+            click: () => { this.shh.mainWindow.trigger("toggleSettings", [true]) }
           },
           { type: "separator" },
           { role: "services" },
@@ -71,7 +71,7 @@ module.exports = class ShhAppMenu {
             {
               label: "Preferences...",
               accelerator: "CommandOrControl+,",
-              click: () => { this.shh.mainWindow.trigger("toggleSettings") }
+              click: () => { this.shh.mainWindow.trigger("toggleSettings", [true]) }
             },
           ])
         ]
@@ -142,11 +142,7 @@ module.exports = class ShhAppMenu {
           },
           {
             label: "Reset config (restarts)",
-            click: () => {
-              this.shh.settings.store.deleteAll()
-              app.relaunch()
-              app.exit(0)
-            } 
+            click: () => { this.shh.settings.purge(true) } 
           },
           {
             label: "Start REPL",

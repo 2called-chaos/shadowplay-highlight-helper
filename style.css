@@ -1,5 +1,16 @@
 body.hidden, [v-cloak] { display: none; }
 
+body.bootstrap-dark hr { border-top: 1px solid rgba(255, 255, 255, 0.1); }
+
+.extra-label-margin-bottom { margin-bottom: 4px !important; }
+
+#settingsModal .modal-body { padding-bottom: 0; }
+#settingsModal {
+  overflow: auto;
+  bottom: 23px;
+  height: auto;
+}
+
 .flexcentered {
   min-height: 100%;
   min-height: 100%;
@@ -44,17 +55,22 @@ body.hidden, [v-cloak] { display: none; }
   border-top: 1px solid rgba(175, 175, 175, 0.4);
   padding: 2px 7px 3px 7px;
   font-size: 11px;
+  z-index: 9999;
 }
 
 .btn-settings-toggle {
   position: fixed;
-  top: 15px;
+  top: 10px;
   right: 15px;
   font-size: 2em;
   color: #FF8C00;
 }
 .btn-settings-toggle:hover {
   color: #FFA500;
+}
+
+.fa-setting-toggle {
+  transition: all 200ms linear;
 }
 
 

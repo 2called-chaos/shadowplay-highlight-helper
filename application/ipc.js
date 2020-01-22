@@ -6,11 +6,9 @@ module.exports = class ShhIPC {
   }
 
   hook() {
-    // ipcMain.on("app-invoke", (event, opt) => {
-    //   if (opt.log) console.log(eval(opt.log))
-    //   if (opt.repl) this.repl()
-    //   //secondWindow.webContents.send("action-update-label", arg);
-    // })
+    ipcMain.on("app-ipc", (event, opt) => {
+      if (opt.resetSettings) { this.shh.settings.purge(opt.restart) }
+    })
 
     return this
   }

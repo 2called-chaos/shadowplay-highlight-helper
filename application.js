@@ -34,7 +34,7 @@ exports.ShadowplayHighlightHelper = class ShadowplayHighlightHelper {
   }
 
   start() {
-    this.settings = new ShhSettings(this).loadDefaults()
+    this.settings = new ShhSettings(this).loadDefaults().loadWatchers().loadIPC()
     this.dev.start()
     //this.setUserAgent()
     this.mainWindow = new ShhMainWindow(this).create()

@@ -17,6 +17,7 @@ module.exports = class ShhWindowTools {
   }
 
   saveBounds() {
+    if(!this.shh.settings.get("shh.remember_size_and_position")) return
     if (!this.windowState.isMaximized) {
       this.windowState = this.windowClass.window.getBounds()
     }
