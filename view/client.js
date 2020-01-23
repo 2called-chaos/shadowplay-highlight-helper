@@ -97,13 +97,6 @@ module.exports = class ViewClient {
     })
 
     // load & watch initial attributes
-    this.cleanup.push(() => {
-      this.ipc.send("app-invoke", {log: `"hmmmm2 ${watchers.length}"`})
-      watchers.forEach(w => {
-        this.ipc.send("app-invoke", {log: `"disposing ${w}"`})
-        w.dispose()
-      })
-    })
     $("#settingsModal").find("[x-setting]").each((i, _el) => {
       const el = $(_el)
       const sname = el.attr("x-setting")
@@ -156,7 +149,7 @@ module.exports = class ViewClient {
   C_toggleSettings(toggle = null, focus = true) {
     console.trace(toggle, focus, $("#settingsModal"))
     if(toggle === null || toggle == undefined) {
-      toggle = !($("#settingsModal").data('bs.modal') || {})._isShown 
+      toggle = !($("#settingsModal").data('bs.modal') || {})._isShown
     }
     if (toggle === true) {
       $("#settingsModal").modal("show")

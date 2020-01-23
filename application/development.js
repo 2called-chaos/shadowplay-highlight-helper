@@ -53,4 +53,3 @@ module.exports = class ShhDevelopment {
     return this
   }
 }
-

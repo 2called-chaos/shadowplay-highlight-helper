@@ -34,10 +34,6 @@ module.exports = class ShhMainWindow {
     //if(this.isDev) this.window.webContents.openDevTools()
     this.window.on("closed", () => { this.window = null })
     this.window.once("ready-to-show", () => { this.window.show() })
-    this.window.webContents.on("did-finish-load", () => {
-      this.window.webContents.send("ping", "whoooooooh!")
-      //this.mainWindowLoop()
-    })
     return this
   }
 
