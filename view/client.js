@@ -10,12 +10,17 @@ module.exports = class ViewClient {
     this.ipc = electron.ipcRenderer
     this.remote = electron.remote
     this.settings = new ShhClientSettings(this)
+    this.cleanup = []
   }
 
   hook() {
     window.$ = window.jquery = require("jquery")
     window.popper = require("popper.js")
     window.bootstrap = require("bootstrap")
+
+    window.addEventListener('beforeunload', () => {
+      while(this.cleanup.length) { this.cleanup.shift()() }
+    })
 
     this.initSettingsModal()
 
