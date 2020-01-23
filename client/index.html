@@ -7,11 +7,10 @@
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <title>ShadowPlay Highlight Helper</title>
     <!-- <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css"> -->
-    <link rel="stylesheet" href="node_modules/@forevolve/bootstrap-dark/dist/css/toggle-bootstrap.css">
-    <link rel="stylesheet" href="node_modules/@forevolve/bootstrap-dark/dist/css/toggle-bootstrap-dark.css">
-    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../node_modules/@forevolve/bootstrap-dark/dist/css/toggle-bootstrap.css">
+    <link rel="stylesheet" href="../node_modules/@forevolve/bootstrap-dark/dist/css/toggle-bootstrap-dark.css">
+    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" href="./style.css">
-    <script type="text/javascript" src="node_modules/vue/dist/vue.js"></script>
   </head>
   <body class="bootstrap hidden">
     <div id="welcome" class="flexcentered">
@@ -25,12 +24,22 @@
     <div id="app" class="row justify-content-md-center d-none">
       <div class="container">
         <a href="#" data-toggle="modal" data-target="#settingsModal" class="btn-settings-toggle"><i class="fa fa-cogs"></i></a>
-        <div class="row">
-          <h2>ShadowPlay Highlight Helper</h2>
+        <div id="view_choose_folder" class="view">
+          <div class="row">
+            <h2>Ch</h2>
+          </div>
+          <div class="row well well-sm">
+            <a href="#" v-on:click="button" class="btn btn-primary">{{buttonText}}</a>
+          </div>
         </div>
-        <div class="row well well-sm">
-          <a href="#" v-on:click="button" class="btn btn-primary">{{buttonText}}</a>
-            
+
+        <div id="view_game_list" class="view">
+          <div class="row">
+            <h2>ShadowPlay Highlight Helper</h2>
+          </div>
+          <div class="row well well-sm">
+            <a href="#" v-on:click="button" class="btn btn-primary">{{buttonText}}</a>
+          </div>
         </div>
       </div>
     </div>

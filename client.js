@@ -1,6 +1,6 @@
 const electron = require("electron");
-const {version} = require("../package.json");
-const ShhClientSettings = require("./settings");
+const {version} = require("./package.json");
+const ShhClientSettings = require("./client/settings");
 
 module.exports = class ViewClient {
   constructor(opts = {}) {
@@ -74,7 +74,6 @@ module.exports = class ViewClient {
   }
 
   UI_toggleSetting(setting, toggleTo) {
-    console.log("uiToggleSetting", setting, toggleTo)
     const el = $(`#settingsModal [x-setting="${setting}"]`)
     const i = $(el).find("i")
     if(toggleTo == undefined) toggleTo = !i.hasClass("text-success")
@@ -111,7 +110,7 @@ module.exports = class ViewClient {
       switch(mode) {
         case "toggle":
           this.UI_toggleSetting(sname, setting)
-          el.click(ev => { console.log(sname, ev); this.settings.toggle(sname) })
+          el.click(ev => { this.settings.toggle(sname) })
           this.settings.watch(sname, (s, v) => this.UI_toggleSetting(s, v))
           break;
         case "input-array":
@@ -149,10 +148,15 @@ module.exports = class ViewClient {
     this.getWindow().focus()
   }
 
+  selectDirectory() {
+    dir = this.remote.dialog.showOpenDialogSync(this.getWindow(), {
+      properties: ['openDirectory', 'createDirectory', 'promptToCreate']
+    })
+    console.log("choose", dir)
+    //@todo updateFS
   }
 
   C_toggleSettings(toggle = null, focus = true) {
-    console.trace(toggle, focus, $("#settingsModal"))
     if(toggle === null || toggle == undefined) {
       toggle = !($("#settingsModal").data('bs.modal') || {})._isShown
     }
@@ -163,5 +167,9 @@ module.exports = class ViewClient {
     }
 
     if(focus) this.focusWindow()
+  }
+
+  C_alert(msg) {
+    alert(msg);
   }
 }

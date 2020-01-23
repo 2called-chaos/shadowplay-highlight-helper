@@ -10,5 +10,5 @@ window.addEventListener("DOMContentLoaded", () => {
     replaceText(`${type}-version`, process.versions[type])
   }
 
-  window.ViewClient = require("./view/client.js");
+  window.ViewClient = require("./../client.js");
 })

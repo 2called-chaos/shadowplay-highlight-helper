@@ -21,16 +21,17 @@ module.exports = class ShhMainWindow {
       y: wstate.y,
       width: wstate.width,
       height: wstate.height,
+      //center: true,
       minWidth: 200,
       minHeight: 100,
       title: "ShadowPlay Highlight Helper",
       webPreferences: {
-        preload: path.join(__dirname, "..", "preload.js")
+        preload: path.join(__dirname, "..", "client", "preload.js")
       }
     })
     if(wstate.isMaximized) { this.window.maximize() }
     this.tools.trackBounds()
-    this.window.loadFile("index.html", { hash: optString })
+    this.window.loadFile("client/index.html", { hash: optString })
     //if(this.isDev) this.window.webContents.openDevTools()
     this.window.on("closed", () => { this.window = null })
     this.window.once("ready-to-show", () => { this.window.show() })
