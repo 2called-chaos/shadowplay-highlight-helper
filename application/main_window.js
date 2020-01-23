@@ -38,7 +38,10 @@ module.exports = class ShhMainWindow {
   }
 
   activate() {
-    if (this.window === null) this.create()
+    if (this.window === null)
+      this.create()
+    else
+      this.window.show()
     return this
   }
 
