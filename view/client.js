@@ -1,9 +1,10 @@
 const electron = require("electron");
-const ShhVersion = require("../application/version");
+const {version} = require("../package.json");
 const ShhClientSettings = require("./settings");
 
 module.exports = class ViewClient {
   constructor(opts = {}) {
+    this.version = version
     this.opts = opts
     this.electron = electron
     this.ipc = electron.ipcRenderer
@@ -18,7 +19,7 @@ module.exports = class ViewClient {
 
     this.initSettingsModal()
 
-    $("[data-attr=shh-version]").text(ShhVersion)
+    $("[data-attr=shh-version]").text(this.version)
     $("body").removeClass("hidden")
     
     this.ipc.on("trigger", (e, m) => {

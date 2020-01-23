@@ -2,6 +2,7 @@
 const {app, session} = require("electron")
 const path = require("path")
 
+const {version} = require("./package.json")
 const ShhSettings = require("./application/settings")
 const ShhMainWindow = require("./application/main_window")
 const ShhAppMenu = require("./application/app_menu.js")
@@ -10,7 +11,7 @@ const ShhDevelopment = require("./application/development.js")
 
 exports.ShadowplayHighlightHelper = class ShadowplayHighlightHelper {
   constructor() {
-    this.version = require("./application/version")
+    this.version = version
     this.name = app.name = "ShadowPlay Highlight Helper"
     this.isDev = process.env.APP_DEV ? (process.env.APP_DEV.trim() == "true" || process.env.APP_DEV.trim() == "1") : false;
     this.isMac = process.platform === "darwin"
