@@ -6,7 +6,7 @@ module.exports = class ShhMainWindow {
   constructor(shh) {
     this.winGroup = "mainWindow"
     this.defaultBounds = { width: 777, height: 666 }
-    
+
     this.shh = shh
     this.window = null
     this.tools = new ShhWindowTools(this.shh, this)

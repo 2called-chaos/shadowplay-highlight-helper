@@ -21,7 +21,7 @@ module.exports = class ViewClient {
 
     $("[data-attr=shh-version]").text(this.version)
     $("body").removeClass("hidden")
-    
+
     this.ipc.on("trigger", (e, m) => {
       console.log("trigger", m, `C_${m.call}`, this[`C_${m.call}`])
       this[`C_${m.call}`] && this[`C_${m.call}`].apply(this, m.args || [])
@@ -38,7 +38,7 @@ module.exports = class ViewClient {
     } else {
       this.showView("choose_folder")
     }
-    
+
     if(true) {
       $("#welcome").fadeOut(2000)
       setTimeout(() => { $("#app").hide().removeClass("d-none").fadeIn(500, () => { this.postLaunch() }) }, 1250)
@@ -46,7 +46,7 @@ module.exports = class ViewClient {
       $("#welcome").fadeOut(350)
       $("#app").hide().removeClass("d-none").fadeIn(500, () => { this.postLaunch() })
     }
-    
+
     return this
   }
 
@@ -133,7 +133,7 @@ module.exports = class ViewClient {
     $("#settingsModal").find("[x-click]").click(ev => {
       $(ev.target).blur()
       switch ($(ev.target).attr("x-click")) {
-        case "prompt-reset-settings": 
+        case "prompt-reset-settings":
           if(confirm("Do you really want to reset all settings and window states?\n\nThe application will restart if you proceed!")) {
             this.ipc.send("app-ipc", { resetSettings: true, restart: true })
           }
@@ -163,7 +163,7 @@ module.exports = class ViewClient {
     } else if (toggle === false) {
       $("#settingsModal").modal("hide")
     }
-    
+
     if(focus) this.focusWindow()
   }
 }

@@ -96,10 +96,10 @@ module.exports = class ShhSettings {
     const winID = event.sender.id
     if(this.watchers[key] && this.watchers[key].indexOf(winID) >= 0)
       return
-    
+
     if(this.debug)
       console.debug(`Watching setting (IPC) ${key} for window ${winID}`)
-    
+
     if(!this.watchers[key]) {
       this.watchers[key] = []
       this.watchers[key].__observer = this.watch(key, (nv, ov) => {

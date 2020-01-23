@@ -13,12 +13,12 @@ window.addEventListener("DOMContentLoaded", () => {
         kvp = parts[i].split("=")
         key = kvp.shift()
         result[key] = kvp.join("=")
-      } 
+      }
     }
     return result
   }
 
-  
+
   window.client = new ViewClient(getHashParams());
   window.client.hook().start();
 })

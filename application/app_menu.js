@@ -138,16 +138,16 @@ module.exports = class ShhAppMenu {
             click: () => {
               app.relaunch()
               app.exit(0)
-            } 
+            }
           },
           {
             label: "Reset config (restarts)",
-            click: () => { this.shh.settings.purge(true) } 
+            click: () => { this.shh.settings.purge(true) }
           },
           {
             label: "Start REPL",
             accelerator: "CommandOrControl+Alt+P",
-            click: () => { this.shh.dev.repl() } 
+            click: () => { this.shh.dev.repl() }
           }
         ]
       }] : []),
@@ -177,4 +177,3 @@ module.exports = class ShhAppMenu {
     ]
   }
 }
-
