@@ -28,17 +28,31 @@ module.exports = class ShhDevelopment {
     })
   }
 
-  repl() {
+  repl(ctx = {}) {
+    let prompt = "> "
+    let message = "main"
+    if(ctx.prompt) {
+      prompt = ctx.prompt
+      delete ctx.prompt
+    }
+    if(ctx.message) {
+      message = ctx.message
+      delete ctx.message
+    }
+    if(message !== "") { message = `(${message})` }
     if(this.repl_started) {
       console.error("Attempted to start REPL but is already active")
       return this
     }
     this.repl_started = true
-    console.log("===== REPL session started")
-    const ri = repl.start({ prompt: "> " })
+    console.log(`===== REPL session started ${message}`)
+    const ri = repl.start({ prompt })
     ri.context.shh = this.shh
+    for (let key in ctx){
+      if(ctx.hasOwnProperty(key)) ri.context[key] = ctx[key]
+    }
     ri.on("exit", () => {
-      console.log("===== REPL session ended")
+      console.log(`===== REPL session ended ${message}`)
       this.repl_started = false
     })
     return this
