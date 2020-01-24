@@ -1,6 +1,7 @@
 const electron = require("electron");
 const {version} = require("./package.json");
 const ShhClientSettings = require("./client/settings");
+const ShhViewManager = require("./client/view_manager");
 
 module.exports = class ViewClient {
   constructor(opts = {}) {
@@ -10,6 +11,7 @@ module.exports = class ViewClient {
     this.ipc = electron.ipcRenderer
     this.remote = electron.remote
     this.settings = new ShhClientSettings(this)
+    this.viewman = new ShhViewManager(this)
     this.cleanup = []
   }
 
@@ -22,10 +24,11 @@ module.exports = class ViewClient {
       while(this.cleanup.length) { this.cleanup.shift()() }
     })
 
+    this.viewman.hideAll()
     this.initSettingsModal()
 
     $("[data-attr=shh-version]").text(this.version)
-    $("body").removeClass("hidden")
+    $("body").removeClass("d-none")
 
     this.ipc.on("trigger", (e, m) => {
       console.log("trigger", m, `C_${m.call}`, this[`C_${m.call}`])
@@ -36,15 +39,13 @@ module.exports = class ViewClient {
   }
 
   start() {
-    $(".view").hide()
-
     if(this.settings.get("shh.remember_directory") && this.settings.get("internal.last_directory")) {
-      this.showView("game_list")
+      this.viewman.show("game_list")
     } else {
-      this.showView("choose_folder")
+      this.viewman.show("choose_folder")
     }
 
-    if(true) {
+    if(false) {
       $("#welcome").fadeOut(2000)
       setTimeout(() => { $("#app").hide().removeClass("d-none").fadeIn(500, () => { this.postLaunch() }) }, 1250)
     } else {
@@ -55,15 +56,7 @@ module.exports = class ViewClient {
     return this
   }
 
-  showView(view, callback) {
-    if($(".view:visible").length)
-      $(".view:visible").fadeOut(250, () => { $(`#view_${view}`).fadeIn(250, () => { if(callback) callback() }) })
-    else
-      $(`#view_${view}`).fadeIn(250, () => { if(callback) callback() })
-  }
-
   postLaunch() {
-    this.C_toggleSettings(true, false)
     if(this.opts.openSettings) {
       this.C_toggleSettings(true, false)
     }

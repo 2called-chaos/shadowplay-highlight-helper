@@ -1,15 +1,15 @@
-body.hidden, [v-cloak] { display: none; }
+document, html, body {
+  color: #d3d3d3;
+  height: 100%;
+  width: 100%;
+}
 
+/* bootstrap fixes */
 body.bootstrap-dark hr { border-top: 1px solid rgba(255, 255, 255, 0.1); }
 
-.extra-label-margin-bottom { margin-bottom: 4px !important; }
 
-#settingsModal .modal-body { padding-bottom: 0; }
-#settingsModal {
-  overflow: auto;
-  bottom: 23px;
-  height: auto;
-}
+/* generic */
+.extra-label-margin-bottom { margin-bottom: 4px !important; }
 
 .flexcentered {
   min-height: 100%;
@@ -24,6 +24,7 @@ body.bootstrap-dark hr { border-top: 1px solid rgba(255, 255, 255, 0.1); }
   display: inline-block;
   white-space: nowrap;
 }
+
 .elli {
   display: inline-block;
   white-space: nowrap;
@@ -31,17 +32,26 @@ body.bootstrap-dark hr { border-top: 1px solid rgba(255, 255, 255, 0.1); }
   text-overflow: ellipsis;
 }
 
-#welcome {
-  color: rgba(255, 255, 255, 0.88);
-  position: fixed;
-  z-index: 100;
-  bottom: 25px;
+
+/* specific */
+#settingsModal .modal-body { padding-bottom: 0; }
+#settingsModal {
+  overflow: auto;
+  bottom: 23px;
+  height: auto;
 }
 
 #app {
   margin: 0px auto 23px auto;
   padding: 24px 30px;
   position: relative;
+}
+
+#welcome {
+  color: rgba(255, 255, 255, 0.88);
+  position: fixed;
+  z-index: 100;
+  bottom: 25px;
 }
 
 #footer {
@@ -65,6 +75,7 @@ body.bootstrap-dark hr { border-top: 1px solid rgba(255, 255, 255, 0.1); }
   font-size: 2em;
   color: #FF8C00;
 }
+
 .btn-settings-toggle:hover {
   color: #FFA500;
 }
@@ -74,12 +85,6 @@ body.bootstrap-dark hr { border-top: 1px solid rgba(255, 255, 255, 0.1); }
 }
 
 
-document, html, body {
-  color: #d3d3d3;
-  height: 100%;
-  width: 100%;
-}
-
 /* scrollbars */
 ::-webkit-scrollbar { width: 6px; height: 6px;}
 ::-webkit-scrollbar-button {  background-color: #666; }
@@ -88,8 +93,6 @@ document, html, body {
 ::-webkit-scrollbar-thumb { height: 25px; background-color: #c2c2c2; border-radius: 4px;}
 ::-webkit-scrollbar-corner { background-color: inherit;}
 ::-webkit-resizer { background-color: #666; }
-
-
 
 
 /* loader animation */
