@@ -30,7 +30,7 @@
 
     <div id="footer">
       <span class="float-left">
-        ShadowPlay Highlight Helper <span data-attr="shh-version">v?</span>
+        ShadowPlay Highlight Helper v<span data-attr="shh-version">?</span>
       </span>
       <span class="float-right">
         powered by
@@ -38,73 +38,6 @@
           Chromium <span id="chrome-version"></span>
           and Electron <span id="electron-version"></span>
       </span>
-    </div>
-
-    <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="settingsModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="settingsModalLabel"><i class="fa fa-cogs"></i> Settings</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form id="settingsForm">
-              <div class="form-group">
-                <label>General</label>
-                <div class="form-check">
-                  <label class="form-check-label" x-setting="shh.dark_mode" x-mode="toggle">
-                    <i class="fa fa-lg fa-fw fa-toggle-on text-success fa-setting-toggle"></i> dark mode
-                  </label>
-                  <small class="form-text text-muted">we only work with dark, light might be wonky</small>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="form-check">
-                  <label class="form-check-label" x-setting="shh.remember_directory" x-mode="toggle">
-                    <i class="fa fa-lg fa-fw fa-toggle-on text-success fa-setting-toggle"></i> remember directory
-                  </label>
-                  <small class="form-text text-muted">remember last directory and automatically open it on launch</small>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="form-check">
-                  <label class="form-check-label" x-setting="shh.remember_size_and_position" x-mode="toggle">
-                    <i class="fa fa-lg fa-fw fa-toggle-on text-success fa-setting-toggle"></i> remember window dimensions
-                  </label>
-                  <small class="form-text text-muted">remember size and position of main window and restore it on launch</small>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="form-check">
-                  <label class="form-check-label" x-setting="shh.check_for_updates" x-mode="toggle">
-                    <i class="fa fa-lg fa-fw fa-toggle-on text-success fa-setting-toggle"></i> check for updates
-                  </label>
-                  <small class="form-text text-muted">you will always be asked if you want to install an update</small>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="form-check">
-                  <label class="form-check-label extra-label-margin-bottom" x-setting="shh.tags" x-mode="input-array" for="settingsModal_shh-tags">
-                    <i class="fa fa-lg fa-fw fa-tags"></i> Favorite tags
-                  </label>
-                  <input type="text" class="form-control" placeholder="clutch, ace, funny moment, glitch" id="settingsModal_shh-tags">
-                  <small class="form-text text-muted">list of tags you can easily select on entries</small>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-link text-muted text-smaller mr-auto" x-click="prompt-reset-settings">reset settings</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
     </div>
 
     <script src="./renderer.js"></script>

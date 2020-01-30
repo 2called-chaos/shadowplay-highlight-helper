@@ -42,9 +42,21 @@ body.bootstrap-dark hr { border-top: 1px solid rgba(255, 255, 255, 0.1); }
 }
 
 #app {
-  margin: 0px auto 23px auto;
+  overflow: auto;
   padding: 24px 30px;
-  position: relative;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 23px;
+}
+
+#view_container {
+  height: 100%;
+}
+
+.view {
+  height: 100%;
 }
 
 #welcome {

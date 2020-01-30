@@ -10,8 +10,10 @@ module.exports = class ShhViewGameList extends ShhView {
       <div class="row">
         <h2>ShadowPlay Highlight Helper</h2>
       </div>
-      <div class="row well well-sm">
-        <a href="#" v-on:click="button" class="btn btn-primary">{{buttonText}}</a>
+      <div class="flexcentered">
+        <div class="row well well-sm">
+          <a href="#" v-on:click="button" class="btn btn-primary">{{buttonText}}</a>
+        </div>
       </div>
     `))
   }

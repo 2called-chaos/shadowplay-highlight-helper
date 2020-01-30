@@ -19,7 +19,7 @@ module.exports = class ShhViewManager {
           .appendTo(this.ctn())
       }
       const klass = require(`./views/${view}`)
-      this.views[view] = new klass(this, domEl)
+      this.views[view] = new klass(this.shh, this, domEl)
     }
 
     return this.views[view]

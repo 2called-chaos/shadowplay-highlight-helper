@@ -25,7 +25,7 @@ module.exports = class ViewClient {
     })
 
     this.viewman.hideAll()
-    this.initSettingsModal()
+    this.viewman.viewInstance("settings_modal") // prerender/init settings modal
 
     $("[data-attr=shh-version]").text(this.version)
     $("body").removeClass("d-none")
@@ -64,102 +64,6 @@ module.exports = class ViewClient {
       this.settings.set("internal.first_start", false)
       this.C_toggleSettings(true, false)
     }
-  }
-
-  UI_toggleSetting(setting, toggleTo) {
-    const el = $(`#settingsModal [x-setting="${setting}"]`)
-    const i = $(el).find("i")
-    if(toggleTo == undefined) toggleTo = !i.hasClass("text-success")
-    i.toggleClass("text-danger fa-toggle-off", !toggleTo).toggleClass("text-success fa-toggle-on", toggleTo)
-    return toggleTo
-  }
-
-  stringToTags(str) {
-    return str
-      .split(",")
-      .map(e => e.trim())
-      .filter(e => e !== "")
-      .filter((v,i,s) => s.indexOf(v) === i )
-  }
-
-  initSettingsModal() {
-    // init / watch dark mode
-    $("body").toggleClass("bootstrap-dark", this.settings.get("shh.dark_mode"))
-    this.settings.watch("shh.dark_mode", v => $("body").toggleClass("bootstrap-dark", v))
-
-    // catch form submit
-    $("#settingsForm").submit((ev) => {
-      this.C_toggleSettings(false)
-      return false
-    })
-
-    // load & watch initial attributes
-    $("#settingsModal").find("[x-setting]").each((i, _el) => {
-      const el = $(_el)
-      const sname = el.attr("x-setting")
-      const setting = this.settings.get(sname)
-      const mode = el.attr("x-mode") || "toggle"
-      this.ipc.send("setting-notify", { key: sname })
-      switch(mode) {
-        case "toggle":
-          this.UI_toggleSetting(sname, setting)
-          el.click(ev => { this.settings.toggle(sname) })
-          this.settings.watch(sname, (s, v) => this.UI_toggleSetting(s, v))
-          break;
-        case "input-array":
-          const input = el.closest(".form-group").find("input")
-            .on("change", ev => {
-              const tags = this.stringToTags($(ev.currentTarget).val())
-              input.val(tags.join(", "))
-              this.settings.set(sname, tags)
-            })
-            .val(setting.join(", "))
-          this.settings.watch(sname, (s, v) => { input.val(v.join(", "))})
-          break;
-      }
-    })
-
-    // click handlers
-    $("#settingsModal").find("[x-click]").click(ev => {
-      $(ev.target).blur()
-      switch ($(ev.target).attr("x-click")) {
-        case "prompt-reset-settings":
-          if(confirm("Do you really want to reset all settings and window states?\n\nThe application will restart if you proceed!")) {
-            this.ipc.send("app-ipc", { resetSettings: true, restart: true })
-          }
-          break
-        default: console.log(ev.target)
-      }
-    })
-  }
-
-  getWindow() {
-    return this.remote.getCurrentWindow()
-  }
-
-  focusWindow() {
-    this.getWindow().focus()
-  }
-
-  selectDirectory() {
-    dir = this.remote.dialog.showOpenDialogSync(this.getWindow(), {
-      properties: ['openDirectory', 'createDirectory', 'promptToCreate']
-    })
-    console.log("choose", dir)
-    //@todo updateFS
-  }
-
-  C_toggleSettings(toggle = null, focus = true) {
-    if(toggle === null || toggle == undefined) {
-      toggle = !($("#settingsModal").data('bs.modal') || {})._isShown
-    }
-    if (toggle === true) {
-      $("#settingsModal").modal("show")
-    } else if (toggle === false) {
-      $("#settingsModal").modal("hide")
-    }
-
-    if(focus) this.focusWindow()
   }
 
   C_alert(msg) {
