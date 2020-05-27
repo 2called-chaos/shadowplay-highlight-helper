@@ -39,7 +39,10 @@ module.exports = class ViewClient {
   }
 
   start() {
+    this.genericListeners()
+
     if(this.settings.get("shh.remember_directory") && this.settings.get("internal.last_directory")) {
+      window.spdir = this.settings.get("internal.last_directory")
       this.viewman.show("game_list")
     } else {
       this.viewman.show("choose_folder")
@@ -54,6 +57,13 @@ module.exports = class ViewClient {
     }
 
     return this
+  }
+
+  genericListeners() {
+    $(document).on("click", "[x-view]", ev => {
+      this.viewman.show($(ev.currentTarget).attr("x-view"))
+      return false
+    })
   }
 
   postLaunch() {

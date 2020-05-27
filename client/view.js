@@ -1,5 +1,6 @@
 module.exports = class ShhView {
-  constructor(shh, manager, dom) {
+  constructor(id, shh, manager, dom) {
+    this.id = id
     this.shh = shh
     this.settings = shh.settings
     this.ipc = shh.ipc
@@ -23,6 +24,10 @@ module.exports = class ShhView {
     this.getWindow().focus()
   }
 
+  visible() {
+    return this.dom.is(":visible")
+  }
+
   _render() {
     if(this.rendered) return this
     if(this.beforeRender) this.beforeRender()
@@ -36,7 +41,17 @@ module.exports = class ShhView {
     return this.manager.show(this, callback)
   }
 
+  beforeShow() {}
+  shown() {}
+  beforeHide() {}
+  hidden() {}
+
   fadeIn(callback, ms = 250) {
     return this.dom.fadeIn(ms, callback)
+  }
+
+  destroy() {
+    this.dom.remove()
+    delete this.manager.views[this.id]
   }
 }

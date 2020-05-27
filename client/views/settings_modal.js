@@ -1,4 +1,4 @@
-ShhView = require("../view")
+const ShhView = require("../view")
 
 module.exports = class ShhModalSettings extends ShhView {
   init() {

@@ -5,6 +5,14 @@ document, html, body {
 }
 
 /* bootstrap fixes */
+.btn-group-xs > .btn, .btn-xs {
+  padding: .25rem .4rem !important;
+  font-size: .875rem !important;
+  line-height: .5 !important;
+  border-radius: .2rem;
+}
+
+/* dark bootstrap fixes */
 body.bootstrap-dark hr { border-top: 1px solid rgba(255, 255, 255, 0.1); }
 
 
@@ -20,13 +28,52 @@ body.bootstrap-dark hr { border-top: 1px solid rgba(255, 255, 255, 0.1); }
   justify-content: center;
 }
 
-.soft_elli {
+.overflow-elli-soft {
   display: inline-block;
   white-space: nowrap;
 }
 
-.elli {
+.overflow-elli {
   display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nbsp {
+  white-space: nowrap !important;
+}
+
+/*table.table-shh-game-list {
+  table-layout: fixed;
+}*/
+table.table-shh-game-list tr .secondary-col {
+  width: 90px;
+}
+table.table-shh-game-list tr .actions-col {
+  position: relative;
+}
+table.table-shh-game-list tr .actions-col > .btn-group {
+  top: -1px;
+}
+table.table-shh-game-list tr .actions-col {
+  width: 1px;
+}
+/*table.table-shh-game-list tr th:first-child {
+  min-width: 50%;
+}*/
+table.table-shh-game-list tr td .text-smaller {
+  font-size: 0.8rem;
+  line-height: 1.5rem;
+}
+table.table-shh-game-list tr td { position: relative; }
+table.table-shh-game-list tr td .overflow-elli {
+  display: inline-block;
+  position: absolute;
+  left: 0.3rem;
+  top: 0.3rem;
+  right: 0.3rem;
+  bottom: 0.3rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

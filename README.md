@@ -21,6 +21,11 @@ If you need help or have problems [open an issue](https://github.com/2called-cha
   * tba (but I guess none?)
 
 
+## Support
+
+  * SHH is being developed on macOS and tested on Windows 10
+
+
 ## Installation
 
   * tba
