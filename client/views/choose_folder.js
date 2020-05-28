@@ -53,6 +53,9 @@ module.exports = class ShhViewChooseFolder extends ShhView {
       this.selectDirectory()
     })
     $("#spdir").on("keyup change", ev => this.validate())
+    $("#spdir").on("focus blur", ev => {
+      if($("#spdir").hasClass("is-invalid")) { this.validate() }
+    })
     if(this.settings.get("internal.last_directory")) {
       $("#spdir").val(this.settings.get("internal.last_directory")).change()
     } else {
