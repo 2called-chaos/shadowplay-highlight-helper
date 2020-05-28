@@ -67,6 +67,7 @@ module.exports = class ShhSettings {
     this.setDefault("shh.dark_mode", true)
     this.setDefault("shh.remember_directory", true)
     this.setDefault("shh.remember_size_and_position", true)
+    this.setDefault("shh.calculate_sizes", false)
     this.setDefault("shh.check_for_updates", true)
     this.setDefault("shh.tags", [])
     return this

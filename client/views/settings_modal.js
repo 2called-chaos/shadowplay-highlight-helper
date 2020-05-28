@@ -17,7 +17,16 @@ module.exports = class ShhModalSettings extends ShhView {
   afterRender() {
     // init / watch dark mode
     $("body").toggleClass("bootstrap-dark", this.settings.get("shh.dark_mode"))
-    this.settings.watch("shh.dark_mode", v => $("body").toggleClass("bootstrap-dark", v))
+    this.settings.watch("shh.dark_mode", (_, v) => $("body").toggleClass("bootstrap-dark", v) )
+    this.settings.watch("shh.calculate_sizes", (_, v) => {
+      if(!v) { return }
+      const activeView = this.manager.visible(true)[0]
+      if (activeView && activeView.id == "game_list") {
+        activeView.dom.find("#game_list_tbody tr").each((i, el) => {
+          activeView.calculateSizeForGame($(el).data("game"))
+        })
+      }
+    })
 
     this.initModal()
     this.initHandlers()
@@ -163,6 +172,15 @@ module.exports = class ShhModalSettings extends ShhView {
                       <i class="fa fa-lg fa-fw fa-toggle-on text-success fa-setting-toggle"></i> remember window dimensions
                     </label>
                     <small class="form-text text-muted">remember size and position of main window and restore it on launch</small>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="form-check">
+                    <label class="form-check-label" x-setting="shh.calculate_sizes" x-mode="toggle">
+                      <i class="fa fa-lg fa-fw fa-toggle-on text-success fa-setting-toggle"></i> calculate folder sizes
+                    </label>
+                    <small class="form-text text-muted">calculate folder sizes by default (you can always selectively choose to)</small>
                   </div>
                 </div>
 

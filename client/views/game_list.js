@@ -158,6 +158,10 @@ module.exports = class ShhViewGameList extends ShhView {
           </button>
         </div>
       `).appendTo(tr)
+
+      if(this.settings.get("shh.calculate_sizes")) {
+        this.calculateSizeForGame(tr.data("game"))
+      }
     })
   }
 
