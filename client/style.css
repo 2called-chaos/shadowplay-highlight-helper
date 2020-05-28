@@ -81,6 +81,23 @@ table.table-shh-game-list tr td .overflow-elli {
 
 
 /* specific */
+.modal-error {
+  overflow: auto !important;
+}
+
+.modal-error .modal-header button.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.modal-error .subtitle {
+  font-size: 12px;
+}
+
+.modal-error .modal-header i.fa {
+  font-size: 6rem;
+}
+
 #settingsModal .modal-body { padding-bottom: 0; }
 #settingsModal {
   overflow: auto;

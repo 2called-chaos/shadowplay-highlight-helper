@@ -1,4 +1,5 @@
 const ShhView = require("../view")
+const ShhFsIndexerClient = require("../../application/fs_indexer/client")
 
 module.exports = class ShhViewGameList extends ShhView {
   init() {
@@ -6,12 +7,14 @@ module.exports = class ShhViewGameList extends ShhView {
   }
 
   beforeShow() {
-    this.indexer =
-    // clear view
   }
 
   shown() {
-    this.buildTableAsync()
+    if(this.indexer) {
+      this.indexer.shutdown(_ => this.spawnIndexer())
+    } else {
+      this.spawnIndexer()
+    }
   }
 
   afterRender() {
@@ -31,6 +34,30 @@ module.exports = class ShhViewGameList extends ShhView {
       $(ev.currentTarget).closest(".click-hide-dropdown").find(".dropdown-toggle").dropdown("toggle")
       this.calculateSizeForGame($(ev.currentTarget).closest("tr").data("game"))
       return false
+    })
+  }
+
+  spawnIndexer() {
+    this.indexer = new ShhFsIndexerClient(this)
+      .on("glist:clearAll",      (data) => { this.glistClearAll(data) })
+      .on("glist:game:new",      (data) => { this.glistGameNew(data) })
+      .on("glist:game:update",   (data) => { this.glistGameUpdate(data) })
+      .on("glist:game:size",     (data) => { this.glistGameSize(data) })
+      .on("glist:sync:complete", (data) => { this.glistSyncComplete(data) })
+      .on("process:error",       (data) => { this.processError(data) })
+      .on("process:ready",       (data) => { this.buildTableAsync() })
+      .spawn()
+  }
+
+  processError(data) {
+    if(typeof data == "string") {
+      data = { code: -1, message: data }
+    }
+    this.showErrorModal({
+      title: "FS Indexer Failure",
+      subtitle: "something went wrong while indexing your highlights folder",
+      message: `<div class="text-danger">${data.message}</div>`,
+      refresh_btn: !this.indexer.alive,
     })
   }
 
@@ -54,7 +81,7 @@ module.exports = class ShhViewGameList extends ShhView {
       if(doms[game]) {
         doms[game].find(".fsize-value").hide()
         doms[game].find(".fsize-pending").show()
-        this.ipc.send("glist:game:calculateSize", { dir: window.spdir, name: doms[game].data("game") })
+        this.indexer.send("glist:game:calculateSize", window.spdir, doms[game].data("game"))
       }
     })
   }
@@ -75,12 +102,7 @@ module.exports = class ShhViewGameList extends ShhView {
   async buildTableAsync() {
     const cfv = this.manager.viewInstance("choose_folder")
     if(window.spdir && !cfv.errorMessage(window.spdir)) {
-      this.ipc.on("glist:clearAll", (ev, payload) => { this.glistClearAll(payload) })
-      this.ipc.on("glist:game:new", (ev, payload) => { this.glistGameNew(payload) })
-      this.ipc.on("glist:game:update", (ev, payload) => { this.glistGameUpdate(payload) })
-      this.ipc.on("glist:game:size", (ev, payload) => { this.glistGameSize(payload) })
-      this.ipc.on("glist:sync:complete", (ev, payload) => { this.glistSyncComplete(payload) })
-      this.ipc.send("glist:sync", window.spdir)
+      this.indexer.send("glist:sync", window.spdir)
     } else {
       cfv.show()
     }
